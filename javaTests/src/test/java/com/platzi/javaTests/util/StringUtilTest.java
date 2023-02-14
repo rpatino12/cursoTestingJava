@@ -5,10 +5,20 @@ import static org.junit.Assert.assertEquals;
 
 public class StringUtilTest {
     @Test
-    public void testRepeat() {
-        // Now using junit4 we can create a Unit testing easily
-        // The method assertEquals of the class Assert for junit has the parameters (expected, actual)
+    public void testRepeatOneTime() {
+        assertEquals("Hello", StringUtil.repeat("Hello", 1));
+    }
+    @Test
+    public void testRepeatMultipleTimes() {
         assertEquals("HelloHelloHello", StringUtil.repeat("Hello", 3));
-        assertEquals("Ricardo", StringUtil.repeat("Ricardo", 1));
+    }
+    @Test
+    public void testRepeatZeroTimes() {
+        assertEquals("", StringUtil.repeat("Hello", 0));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testRepeatNegativeTimes() {
+        StringUtil.repeat("Hello", -1);
     }
 }
