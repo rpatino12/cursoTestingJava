@@ -44,6 +44,10 @@ public class RomanNumeralsTest {
         assertEquals("XCIX", RomanNumerals.arabicToRoman(99));
         assertEquals("CD", RomanNumerals.arabicToRoman(400));
         assertEquals("CM", RomanNumerals.arabicToRoman(900));
+    }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void throwExceptionForZeroOrNegative() {
+        RomanNumerals.arabicToRoman(0);
     }
 }
