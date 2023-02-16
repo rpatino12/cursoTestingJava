@@ -1,7 +1,8 @@
 package com.platzi.javaTests.util;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.Assert.*;
 
 public class StringUtilTest {
     @Test
@@ -20,5 +21,23 @@ public class StringUtilTest {
     @Test (expected = IllegalArgumentException.class)
     public void testRepeatNegativeTimes() {
         StringUtil.repeat("Hello", -1);
+    }
+    
+    // Now we are going to test the isEmpty() method
+    @Test
+    public void testIsNotEmpty() {
+        assertFalse(StringUtil.isEmpty("Any String"));
+    }
+    @Test
+    public void testEmptyString() {
+        assertTrue(StringUtil.isEmpty(""));
+    }
+    @Test
+    public void testNullStringIsEmpty() {
+        assertTrue(StringUtil.isEmpty(null));
+    }
+    @Test
+    public void testStringWithSpacesIsEmpty() {
+        assertTrue(StringUtil.isEmpty("    "));
     }
 }
