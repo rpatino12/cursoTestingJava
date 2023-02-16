@@ -1,7 +1,10 @@
 package com.platzi.javaTests.util;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
+import org.hamcrest.MatcherAssert;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 public class DateUtilLeapYearShould {
@@ -15,7 +18,10 @@ public class DateUtilLeapYearShould {
 
     @Test
     public void return_true_when_year_is_divisible_by_400() {
-        assertTrue(DateUtilTDD.isLeapYear(1600));
+        // Here we use the method asserThat from the MatcherAssert class
+        // And the method is from the CoreMatchers class
+        // It works similar to assertTrue but has more readability, better failure messages and type safety
+        MatcherAssert.assertThat(DateUtilTDD.isLeapYear(1600), is(true));
         assertTrue(DateUtilTDD.isLeapYear(2000));
         assertTrue(DateUtilTDD.isLeapYear(2400));
     }
