@@ -28,12 +28,17 @@ public class PaymentProcessorTest {
 
     @Test
     public void testPaymentIsWrong() {
+        // Here we can see the three parts for a typical test case:
+        // 1. Preparation for the test (Declare the objects needed)
         PaymentGateway paymentGateway = Mockito.mock(PaymentGateway.class);
         Mockito.when(paymentGateway.requestPayment(Mockito.any())).
                 thenReturn(new PaymentResponse(PaymentStatus.ERROR));
-
         PaymentProcessor paymentProcessor = new PaymentProcessor(paymentGateway);
 
-        assertFalse(paymentProcessor.makePayment(1000));
+        // 2. Call the method that we want to test
+        boolean result = paymentProcessor.makePayment(1000);
+
+        // 3. Check the expected result
+        assertFalse(result);
     }
 }
