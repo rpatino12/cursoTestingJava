@@ -15,14 +15,11 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class MovieServiceTest {
+
     private MovieService movieService;
     @Before
     public void setUp(){
-        // Here we mock the repository class
         MovieRepository movieRepository = Mockito.mock(MovieRepository.class);
-
-        // And here mock the behavior that the repository class would have when calling the method findAll()
-        // We mock that the repository is going to return those 7 movies
         Mockito.when(movieRepository.findAll()).thenReturn(
                 Arrays.asList(
                         new Movie(1, "Dark Knight", 152, Genre.ACTION),
@@ -34,25 +31,25 @@ public class MovieServiceTest {
                         new Movie(7, "Matrix", 136, Genre.ACTION)
                 )
         );
-
-        // Then we create the movieService instance
         movieService = new MovieService(movieRepository);
     }
 
     @Test
     public void return_movies_by_genre() {
-        // And here we call the movieService method findMoviesByGenre() that we want to test
+        // Here we have the collection of Comedy movies
         Collection<Movie> movies = movieService.findMoviesByGenre(Genre.COMEDY);
-        // To check that findMoviesByGenre() is working and return only the comedy movies
-        // We are going to get the movie's id, so we can check the assertion easily
+        // And here we get the ids of the Comedy movies
         List<Integer> moviesId = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
-
-        // Here we check the id, we have to obtain only the comedy movies ids (3 and 6)
+        // Here just check the ids
         assertEquals(Arrays.asList(3, 6), moviesId);
     }
 
     @Test
     public void return_movies_by_length() {
-
+        // Here we have the collection of movies with a duration less or equal to the duration indicated
+        Collection<Movie> movies = movieService.findMoviesByLength(119);
+        List<Integer> moviesId = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
+        // Here just check the ids
+        assertEquals(Arrays.asList(2, 3, 4, 5, 6), moviesId);
     }
 }
