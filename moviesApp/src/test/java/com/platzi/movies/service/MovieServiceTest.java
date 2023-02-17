@@ -38,18 +38,18 @@ public class MovieServiceTest {
     public void return_movies_by_genre() {
         // Here we have the collection of Comedy movies
         Collection<Movie> movies = movieService.findMoviesByGenre(Genre.COMEDY);
-        // And here we get the ids of the Comedy movies
-        List<Integer> moviesId = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
-        // Here just check the ids
-        assertEquals(Arrays.asList(3, 6), moviesId);
+        assertEquals(Arrays.asList(3, 6), getMoviesId(movies));
     }
 
     @Test
     public void return_movies_by_length() {
         // Here we have the collection of movies with a duration less or equal to the duration indicated
         Collection<Movie> movies = movieService.findMoviesByLength(119);
-        List<Integer> moviesId = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
-        // Here just check the ids
-        assertEquals(Arrays.asList(2, 3, 4, 5, 6), moviesId);
+        assertEquals(Arrays.asList(2, 3, 4, 5, 6), getMoviesId(movies));
+    }
+
+    private List<Integer> getMoviesId(Collection<Movie> movies) {
+        List<Integer> moviesId = movies.stream().map(Movie::getId).collect(Collectors.toList());
+        return moviesId;
     }
 }
