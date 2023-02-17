@@ -30,4 +30,9 @@ public class MovieService {
         return movieRepository.findAll().stream().
                 filter(movie -> movie.getMinutes() <= length).collect(Collectors.toList());
     }
+
+    public Collection<Movie> findMoviesByInitial(String initial) {
+        return movieRepository.findAll().stream().
+                filter(movie -> movie.getName().substring(0,1).equals(initial)).collect(Collectors.toList());
+    }
 }
