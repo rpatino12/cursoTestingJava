@@ -3,6 +3,7 @@ package com.platzi.movies.service;
 import com.platzi.movies.data.MovieRepository;
 import com.platzi.movies.model.Genre;
 import com.platzi.movies.model.Movie;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -14,8 +15,9 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class MovieServiceTest {
-    @Test
-    public void return_movies_by_genre() {
+    private MovieService movieService;
+    @Before
+    public void setUp(){
         // Here we mock the repository class
         MovieRepository movieRepository = Mockito.mock(MovieRepository.class);
 
@@ -34,16 +36,23 @@ public class MovieServiceTest {
         );
 
         // Then we create the movieService instance
-        MovieService movieService = new MovieService(movieRepository);
+        movieService = new MovieService(movieRepository);
+    }
 
+    @Test
+    public void return_movies_by_genre() {
         // And here we call the movieService method findMoviesByGenre() that we want to test
         Collection<Movie> movies = movieService.findMoviesByGenre(Genre.COMEDY);
-
         // To check that findMoviesByGenre() is working and return only the comedy movies
         // We are going to get the movie's id, so we can check the assertion easily
         List<Integer> moviesId = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
 
         // Here we check the id, we have to obtain only the comedy movies ids (3 and 6)
         assertEquals(Arrays.asList(3, 6), moviesId);
+    }
+
+    @Test
+    public void return_movies_by_length() {
+
     }
 }
