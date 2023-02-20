@@ -2,6 +2,7 @@ package com.platzi.movies.data;
 
 import com.platzi.movies.model.Genre;
 import com.platzi.movies.model.Movie;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.PathResource;
@@ -17,8 +18,10 @@ import static org.junit.Assert.*;
 
 public class MovieRepositoryIntegrationTest {
 
-    @Test
-    public void load_all_movies_from_database() throws SQLException {
+    private MovieRepositoryJdbc movieRepository;
+
+    @Before
+    public void setUp() throws Exception {
         // The JdbcTemplate needs a DataSource (This represents the connection to the database)
         // So we use the following method from the spring-jdbc library
         // And for the url we use the library h2database to simulate the database (creates a db in memory)
@@ -34,8 +37,11 @@ public class MovieRepositoryIntegrationTest {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
         // Create the repository
-        MovieRepositoryJdbc movieRepository = new MovieRepositoryJdbc(jdbcTemplate);
+        movieRepository = new MovieRepositoryJdbc(jdbcTemplate);
+    }
 
+    @Test
+    public void load_all_movies_from_database() {
         // Now we are going to test if we can load all the movies from the database
         Collection<Movie> movies = movieRepository.findAll();
 
