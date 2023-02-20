@@ -62,6 +62,17 @@ public class MovieRepositoryIntegrationTest {
         assertEquals(new Movie(3, "Matrix", 136, Genre.ACTION), movie);
     }
 
+    @Test
+    public void insert_a_movie_to_database() {
+        Movie movie = new Movie("Super 8", 112, Genre.THRILLER);
+
+        movieRepository.saveOrUpdate(movie);
+
+        Movie movieSavedInDb = movieRepository.findById(4); // We are going to look for the movie with the consecutive id
+
+        assertEquals(new Movie(4,"Super 8", 112, Genre.THRILLER), movieSavedInDb);
+    }
+
     // Now I need to erase the database after every test run, so the data doesn't add up between tests
     @After
     public void tearDown() throws Exception {

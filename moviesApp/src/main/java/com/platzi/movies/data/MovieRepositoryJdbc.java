@@ -47,6 +47,9 @@ public class MovieRepositoryJdbc implements MovieRepository {
 
     @Override
     public void saveOrUpdate(Movie movie) {
-
+        // This method is used to send data to the data base, unlike query or queryForObject that are for get data from db
+        // So we insert a new movie to the database
+        jdbcTemplate.update("INSERT INTO movies (name, minutes, genre) VALUES (?, ?, ?)",
+                movie.getName(), movie.getMinutes(), movie.getGenre().toString());
     }
 }
