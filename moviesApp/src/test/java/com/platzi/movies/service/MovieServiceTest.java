@@ -29,7 +29,8 @@ public class MovieServiceTest {
                         new Movie(5, "Scream", 111, Genre.HORROR),
                         new Movie(6, "Home Alone", 103, Genre.COMEDY),
                         new Movie(7, "Matrix", 136, Genre.ACTION),
-                        new Movie(8, "Sensorial", 140, Genre.DRAMA)
+                        new Movie(8, "Sensorial", 140, Genre.DRAMA),
+                        new Movie(9, "Superman", 132, Genre.DRAMA)
                 )
         );
         movieService = new MovieService(movieRepository);
@@ -52,7 +53,13 @@ public class MovieServiceTest {
     @Test
     public void return_movies_by_initial_letter() {
         Collection<Movie> movies = movieService.findMoviesByInitial("S");
-        assertEquals(Arrays.asList(4, 5, 8), getMoviesId(movies));
+        assertEquals(Arrays.asList(4, 5, 8, 9), getMoviesId(movies));
+    }
+
+    @Test
+    public void return_movies_by_name() {
+        Collection<Movie> movies = movieService.findMoviesByName("super");
+        assertEquals(Arrays.asList(4, 9), getMoviesId(movies));
     }
 
     private List<Integer> getMoviesId(Collection<Movie> movies) {

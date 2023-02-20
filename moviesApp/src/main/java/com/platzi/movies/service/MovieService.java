@@ -35,4 +35,9 @@ public class MovieService {
         return movieRepository.findAll().stream().
                 filter(movie -> movie.getName().substring(0,1).equals(initial)).collect(Collectors.toList());
     }
+
+    public Collection<Movie> findMoviesByName(String name) {
+        return movieRepository.findAll().stream().
+                filter(movie -> movie.getName().toLowerCase().contains(name)).collect(Collectors.toList());
+    }
 }
