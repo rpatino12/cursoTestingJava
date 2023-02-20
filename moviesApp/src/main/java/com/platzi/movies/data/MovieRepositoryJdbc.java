@@ -5,6 +5,7 @@ import com.platzi.movies.model.Movie;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.sql.Types;
 import java.util.Collection;
 
 public class MovieRepositoryJdbc implements MovieRepository {
@@ -29,7 +30,11 @@ public class MovieRepositoryJdbc implements MovieRepository {
 
     @Override
     public Movie findById(long id) {
-        return null;
+        Object[] args = {id};
+        int[] types = { Types.INTEGER };
+
+        // This method is use to return only one object from the database
+        return jdbcTemplate.queryForObject("SELECT * FROM movies WHERE id = ?", args, types, movieMapper);
     }
 
     @Override
